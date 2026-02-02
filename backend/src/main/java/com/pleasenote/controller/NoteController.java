@@ -67,10 +67,10 @@ public class NoteController {
     public ResponseEntity<?> updateNote(@PathVariable Long id, @RequestBody Map<String, Object> body) {
         User user = getCurrentUser();
         Note note = noteRepository.findById(id)
-            .orElseThopinReturn ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Note not found"));
+            .orElse(null);
 
-        if (!note.getUser().getId().equals(user.getId())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "Not your note"));
+        if (note == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Note not found"));
         }
 
         Long lastRevisionId = ((Number) body.get("lastRevisionId")).longValue();
