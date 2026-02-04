@@ -17,7 +17,7 @@ public class NoteRevision {
     @JoinColumn(name = "note_id")
     private Note note;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Column(name = "revision_number", nullable = false)
